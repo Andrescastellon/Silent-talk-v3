@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traductor LSC - Versión Vertical</title>
+</head>
+<body>
+
+  <h2>Traductor Lengua de Señas (Alfabeto)</h2>
+
+  <!-- Botón para activar la cámara -->
+  <button id="btnCam">📷 Activar cámara</button>
+  <br><br>
+
+  <!-- Vista previa de la cámara (vertical, ocupa todo el ancho) -->
+  <video id="video" autoplay playsinline style="width:100%; max-height:70vh; background:#000;"></video>
+  <br><br>
+
+  <!-- Botón para detectar letra -->
+  <button id="btnDetect">🔍 Detectar letra</button>
+
+  <p id="estado">Estado: esperando...</p>
+  <p id="resultado">Letra detectada: -</p>
+
+  <script>
+    const video = document.getElementById('video');
+    const estado = document.getElementById('estado');
+    const resultado = document.getElementById('resultado');
+
+    document.getElementById('btnCam').onclick = async () => {
+      try {
+        estado.textContent = "Estado: abriendo cámara...";
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }});
+        video.srcObject = stream;
+        estado.textContent = "Cámara encendida ✅";
+      } catch (err) {
+        estado.textContent = "❌ Error: no se pudo acceder a la cámara";
+      }
+    }
+
+    document.getElementById('btnDetect').onclick = () => {
+      // ✅ Aquí luego conectamos el MODELO real
+      // Por ahora simulamos detección
+      estado.textContent = "Procesando...";
+      setTimeout(() => {
+        resultado.textContent = "Letra detectada: A (ejemplo) ✅";
+        estado.textContent = "Listo.";
+      }, 800);
+    }
+  </script>
+
+</body>
+</html>
